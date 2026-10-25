@@ -12,7 +12,7 @@ export default function Portrait({ compact = false }: { compact?: boolean }) {
         {person.portrait ? (
           <Image
             src={person.portrait}
-            alt="Ali Asghar wearing a navy polo shirt"
+            alt="Ali Asghar wearing a navy crewneck"
             fill
             sizes={
               compact

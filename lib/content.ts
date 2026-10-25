@@ -7,7 +7,7 @@ export const person = {
   linkedin: "https://www.linkedin.com/in/asghar110/",
   employer: "Digital Dividend Global",
   // User-approved portrait; the source is preserved in assets/portraits/.
-  portrait: "/images/ali-asghar-navy-polo.webp" as string | null,
+  portrait: "/images/ali-asghar-crewneck.webp" as string | null,
 };
 
 export const navigation = [
