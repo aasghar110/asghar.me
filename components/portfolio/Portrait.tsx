@@ -12,7 +12,7 @@ export default function Portrait({ compact = false }: { compact?: boolean }) {
         {person.portrait ? (
           <Image
             src={person.portrait}
-            alt="Ali Asghar wearing a navy crewneck"
+            alt="Ali Asghar wearing a navy polo shirt"
             fill
             sizes={
               compact
@@ -20,6 +20,7 @@ export default function Portrait({ compact = false }: { compact?: boolean }) {
                 : "(max-width: 599px) 80vw, (max-width: 799px) 45vw, (max-width: 1391px) 42vw, 522px"
             }
             preload
+            quality={90}
             style={{ objectFit: "cover", objectPosition: "center 25%" }}
           />
         ) : (

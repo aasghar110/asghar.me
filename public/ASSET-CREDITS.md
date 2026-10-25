@@ -9,3 +9,5 @@
 - Original unapproved portrait and application images are preserved outside the public directory in `assets/unpublished/`. They are not served by this site.
 
 To refresh public captures and icons, run `npm run assets:refresh` after installing Playwright Chromium. Review refreshed files before publishing.
+
+The current navy-polo portrait was supplied and approved by Ali Asghar. Its original PNG is archived in assets/portraits/ali-asghar-navy-polo-original.png. The public master is lossless WebP at the original 1254 x 1254 resolution; Next.js delivers responsive variants at quality 90. No facial edits were applied.
