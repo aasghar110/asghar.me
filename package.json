@@ -3,21 +3,40 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "node node_modules/next/dist/bin/next dev",
+    "build": "node node_modules/next/dist/bin/next build",
+    "start": "node node_modules/next/dist/bin/next start",
+    "lint": "node node_modules/eslint/bin/eslint.js .",
+    "typecheck": "node node_modules/typescript/bin/tsc --noEmit",
+    "test": "node node_modules/@playwright/test/cli.js test --project=chromium",
+    "test:browsers": "node node_modules/@playwright/test/cli.js test",
+    "assets:refresh": "node scripts/prepare-assets.cjs",
+    "screenshots": "node scripts/capture-preview.cjs",
+    "audit:performance": "node scripts/audit-performance.mjs",
+    "format": "node node_modules/prettier/bin/prettier.cjs --write app components lib scripts tests *.ts *.mjs README.md docs/*.md"
   },
   "dependencies": {
-    "gsap": "^3.15.0",
-    "lenis": "^1.3.23",
-    "next": "16.2.6",
+    "gsap": "3.15.0",
+    "next": "16.4.3",
+    "nodemailer": "^10.2.1",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.64.1",
     "@types/node": "^20",
+    "@types/nodemailer": "^8.0.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.4.3",
+    "lighthouse": "^13.5.0",
+    "prettier": "^3.9.10",
+    "sharp": "^0.35.5",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }

@@ -1,57 +1,90 @@
-import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+﻿import type { Metadata, Viewport } from "next";
+import { Geist, Manrope } from "next/font/google";
+import Header from "@/components/portfolio/Header";
+import Footer from "@/components/portfolio/Footer";
+import Analytics from "@/components/portfolio/Analytics";
+import ScrollMotion from "@/components/portfolio/ScrollMotion";
+import { person } from "@/lib/content";
+import { isPreview, siteUrl } from "@/lib/seo";
 import "./globals.css";
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
+const geist = Geist({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
 });
-
-export const metadata: Metadata = {
-  title: "Ali Asghar — Software Engineer",
-  description:
-    "Ali Asghar — Software Engineer. .NET / Spring Boot / Node.js / React / Cloud. Karachi, Pakistan.",
-  openGraph: {
-    title: "Ali Asghar — Software Engineer",
-    description:
-      ".NET / Spring Boot / Node.js / React / Cloud. Building enterprise backends, microservices, and SaaS products.",
-    type: "website",
-    locale: "en_US",
-  },
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-heading",
+  display: "swap",
+});
+export const viewport: Viewport = {
+  themeColor: "#F8FAFC",
+  colorScheme: "light",
 };
-
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Ali Asghar | Software Engineer",
+    template: "%s | Ali Asghar",
+  },
+  description:
+    "Ali Asghar is a software engineer building backend systems, full-stack applications, and cloud-based products.",
+  applicationName: "Ali Asghar Portfolio",
+  authors: [{ name: person.name, url: siteUrl }],
+  robots: isPreview
+    ? { index: false, follow: false }
+    : { index: true, follow: true },
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
+};
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
+  const schema = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": `${siteUrl}/#person`,
+      name: person.name,
+      jobTitle: person.title,
+      url: siteUrl,
+      sameAs: [person.github, person.linkedin],
+      homeLocation: { "@type": "Place", name: person.location },
+      ...(person.portrait
+        ? { image: new URL(person.portrait, siteUrl).toString() }
+        : {}),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: "Ali Asghar — Software Engineer",
+      inLanguage: "en",
+      author: { "@id": `${siteUrl}/#person` },
+    },
+  ];
   return (
-    <html lang="en" className={jetbrainsMono.variable} suppressHydrationWarning>
-      <head>
-        <meta
-          name="theme-color"
-          content="#07070E"
-          media="(prefers-color-scheme: dark)"
-        />
-        <meta
-          name="theme-color"
-          content="#F4F1EA"
-          media="(prefers-color-scheme: light)"
-        />
-        <link rel="preconnect" href="https://api.fontshare.com" />
-        <link
-          href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&display=swap"
-          rel="stylesheet"
-        />
-        {/* Apply saved theme before first paint */}
+    <html lang="en" className={`${geist.variable} ${manrope.variable}`}>
+      <body>
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        <Header />
+        <main id="main" tabIndex={-1}>
+          {children}
+        </main>
+        <Footer />
+        <ScrollMotion />
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && <Analytics />}
         <script
+          type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem('asghar-theme');if(t==='light')document.documentElement.classList.add('theme-light')}catch(e){}`,
+            __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
           }}
         />
-      </head>
-      <body>{children}</body>
+      </body>
     </html>
   );
 }
