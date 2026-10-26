@@ -2,7 +2,7 @@ import Link from "next/link";
 import PageIntro from "@/components/portfolio/PageIntro";
 import { ContactCTA } from "@/components/portfolio/Footer";
 import { Arrow } from "@/components/portfolio/Icons";
-import { experience } from "@/lib/content";
+import { experience, education } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
   "Experience",
@@ -62,8 +62,15 @@ export default function Experience() {
       <section className="container experience-end">
         <div>
           <div className="section-label">EDUCATION</div>
-          <h3>BS Computer Science</h3>
-          <p>Hamdard University · 2020–2024</p>
+          {education.map((item) => (
+            <div key={item.degree}>
+              <h3>{item.degree}</h3>
+              <p>
+                {item.institution} &middot; {item.dates}
+                {item.status ? " - " + item.status : ""}
+              </p>
+            </div>
+          ))}
         </div>
         <Link prefetch={false} className="text-link" href="/work">
           See the work behind the experience <Arrow diagonal />

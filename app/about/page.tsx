@@ -3,7 +3,7 @@ import PageIntro from "@/components/portfolio/PageIntro";
 import Portrait from "@/components/portfolio/Portrait";
 import { ContactCTA } from "@/components/portfolio/Footer";
 import { Arrow, SymbolIcon } from "@/components/portfolio/Icons";
-import { strengths } from "@/lib/content";
+import { strengths, education } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
   "About",
@@ -132,9 +132,16 @@ export default function About() {
         </div>
       </section>
       <section className="container education-card">
-        <div className="section-label">THE FOUNDATION</div>
-        <h3>BS Computer Science</h3>
-        <p>Hamdard University · 2020–2024</p>
+        <div className="section-label">EDUCATION</div>
+        {education.map((item) => (
+          <div key={item.degree}>
+            <h3>{item.degree}</h3>
+            <p>
+              {item.institution} &middot; {item.dates}
+              {item.status ? " - " + item.status : ""}
+            </p>
+          </div>
+        ))}
         <Link prefetch={false} className="text-link" href="/work/kidzsearch">
           Explore my final-year project <Arrow diagonal />
         </Link>

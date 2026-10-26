@@ -213,3 +213,18 @@ export const strengths = [
     tools: "AWS · Azure · OCI · Infrastructure as Code",
   },
 ];
+
+export const education = [
+  {
+    degree: "MS Computer Science",
+    institution: "FAST-NUCES",
+    dates: "Aug 2026 - Present",
+    status: "In progress",
+  },
+  {
+    degree: "BS Computer Science",
+    institution: "Hamdard University",
+    dates: "2020-2024",
+    status: null,
+  },
+];
