@@ -44,4 +44,6 @@ Build verification exposed [GHSA-mfr8-8qww-v76h](https://github.com/advisories/G
 
 ## Validation
 
+Final local production build, lint, and typecheck passed on Next.js 16.4.6 using Node.js 22.23.4. `npm audit --omit=dev` reported zero known production dependency vulnerabilities. `npm run test:browsers -- --workers=1` passed 39 checks across Chromium, WebKit, and Firefox; six configured contact/preview checks were skipped. Coverage includes all 11 public routes, metadata, canonicals, JSON-LD, internal links, 404s, responsive layout, JavaScript-free content, automated accessibility, navigation/motion, mocked contact handling, and no Google Analytics requests.
+
 See the PR for actual build and browser results. The existing production homepage, robots file, and sitemap returned HTTP 200 during review. Search Console ownership, live indexing, Google rich-result validation, and future rankings require post-deployment verification and are not claimed by local tests. Remaining release/account checks are tracked in [issue #1](https://github.com/aasghar110/asghar.me/issues/1).
