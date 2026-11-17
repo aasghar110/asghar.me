@@ -1,5 +1,7 @@
 # Portfolio SEO, AEO, and GEO
 
+Saved Search Console comparison snapshots live in `docs/seo-baselines/`. The [17 November 2026 baseline](seo-baselines/2026-11-17.md) records the owner's supplied screenshot; preserve its date-range limitations when comparing future reports.
+
 Reviewed 17 November 2026. This is an on-page implementation plan, not a ranking guarantee. Search Console is the only search measurement integration; no visitor analytics script is required.
 
 ## Search intent and page ownership
