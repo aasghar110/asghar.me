@@ -5,7 +5,7 @@ import { Arrow } from "@/components/portfolio/Icons";
 import { experience, education } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
-  "Experience",
+  "Software Engineering Experience",
   "Ali Asghar’s software engineering experience at Digital Dividend Global and GentecSoft, with a background in backend and full-stack applications.",
   "/experience",
 );

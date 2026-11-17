@@ -1,18 +1,30 @@
 import Link from "next/link";
 import PageIntro from "@/components/portfolio/PageIntro";
 import Portrait from "@/components/portfolio/Portrait";
+import StructuredData from "@/components/portfolio/StructuredData";
 import { ContactCTA } from "@/components/portfolio/Footer";
 import { Arrow, SymbolIcon } from "@/components/portfolio/Icons";
 import { strengths, education } from "@/lib/content";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, siteUrl } from "@/lib/seo";
 export const metadata = pageMetadata(
-  "About",
+  "About a Backend & Full-Stack Engineer",
   "Meet Ali Asghar, a Karachi-based software engineer focused on backend systems, full-stack applications, and thoughtful product development.",
   "/about",
 );
 export default function About() {
   return (
     <>
+      <StructuredData
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          "@id": `${siteUrl}/about#webpage`,
+          url: `${siteUrl}/about`,
+          name: "About Ali Asghar",
+          isPartOf: { "@id": `${siteUrl}/#website` },
+          mainEntity: { "@id": `${siteUrl}/#person` },
+        }}
+      />
       <PageIntro
         eyebrow="A LITTLE ABOUT ME"
         title="Good software starts"

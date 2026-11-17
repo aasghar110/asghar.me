@@ -3,7 +3,7 @@ import { person } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
   "Privacy & Cookies",
-  "How this portfolio handles contact messages, optional analytics, and cookie preferences.",
+  "How Ali Asghar’s portfolio handles contact messages, spam protection, hosting, and Google Search Console performance reporting.",
   "/privacy",
 );
 export default function Privacy() {
@@ -35,20 +35,12 @@ export default function Privacy() {
           temporarily in Upstash Redis to limit repeated requests. Message
           contents are not stored there.
         </p>
-        <h2>Optional analytics</h2>
+        <h2>Search performance</h2>
         <p>
-          Google Analytics is loaded only when a measurement ID is configured
-          and you choose to allow analytics. It measures page views and selected
-          project or contact interactions. Form field contents and email message
-          text are not sent to analytics. Analytics may use cookies and process
-          technical information about your visit.
-        </p>
-        <h2>Your choice</h2>
-        <p>
-          Use “Cookie preferences” in the site’s consent controls to change your
-          choice. Declining analytics does not prevent navigation or contacting
-          me. If you withdraw consent, this site stops analytics collection and
-          removes its accessible Google Analytics cookies.
+          I use Google Search Console to review how this website appears in
+          Google Search. This site does not load Google Analytics or set
+          analytics cookies. Search Console verification does not require a
+          visitor tracking script.
         </p>
         <h2>Hosting and external links</h2>
         <p>

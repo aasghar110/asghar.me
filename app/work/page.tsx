@@ -4,7 +4,7 @@ import { ContactCTA } from "@/components/portfolio/Footer";
 import { projects } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
-  "Selected Work",
+  "Software Projects & Engineering Case Studies",
   "Explore Ali Asghar’s selected software projects, including Invo.pk, KidzSearch, and anonymized professional engineering work.",
   "/work",
 );

@@ -8,11 +8,11 @@ import { projects, person } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = {
   ...pageMetadata(
-    "Software Engineer",
+    "Backend & Full-Stack Software Engineer in Karachi",
     "Ali Asghar is a software engineer in Karachi building backend systems, full-stack applications, and cloud-based products. Explore selected work and experience.",
     "/",
   ),
-  title: { absolute: "Ali Asghar | Software Engineer" },
+  title: { absolute: "Ali Asghar | Backend & Full-Stack Engineer in Karachi" },
 };
 export default function Home() {
   return (
@@ -30,10 +30,9 @@ export default function Home() {
             </span>
           </h1>
           <p className="hero-description">
-            I build the systems behind useful software.
-            <br className="desktop-break" /> From dependable backends to
-            thoughtful
-            <br className="desktop-break" /> full-stack products.
+            I’m Ali Asghar, a software engineer in Karachi, Pakistan. I build
+            backend systems and full-stack applications with .NET, React, and
+            Node.js.
           </p>
           <div className="hero-actions">
             <Link

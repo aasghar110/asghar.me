@@ -1,5 +1,7 @@
 # Redesign handoff
 
+This document records the original redesign and its measurements. The current Search Console-only policy and SEO/AEO/GEO changes are documented in [SEO.md](SEO.md); its measurement policy supersedes the historical Google Analytics setup below.
+
 ## Delivered
 
 The portfolio has been rebuilt around a light editorial design: large Manrope headings, Geist body copy, navy hierarchy, restrained blue accents, fine borders, and asymmetric selected-work cards. The homepage stays focused on an introduction, technology rail, three projects, a short background/experience preview, and a contact invitation.
