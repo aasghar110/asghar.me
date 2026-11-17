@@ -78,7 +78,7 @@ test("selected case studies support full-card pointer and keyboard navigation", 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   const section = page.getByRole("region", {
-    name: /Built with purpose.*Designed for real life/,
+    name: /Software,.*in practice/,
   });
   await expect(section.locator("article")).toHaveCount(3);
   await expect(section.locator(".selected-project-academic img")).toHaveCount(
