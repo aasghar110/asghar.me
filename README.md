@@ -58,7 +58,7 @@ KidzSearch uses a text-only final-year project card and has no project image pan
 
 `app/globals.css` defines colors, typography, spacing, responsive layouts, and reduced-motion alternatives. Geist is used for body copy; Manrope for headlines. Fonts are self-hosted through `next/font`.
 
-Shared components live in `components/portfolio/`: Header, Footer/ContactCTA, Portrait, PageIntro, ProjectCard, ProjectVisual, TechnologyStack, ContactForm, StructuredData, and Icons. The site has no dark theme, scroll hijacking, loading screen, custom cursor, or client-rendered content shell.
+Shared components live in `components/portfolio/`: Header, Footer/ContactCTA, Portrait, PageIntro, ProjectCard, SelectedWork, ProjectVisual, TechnologyStack, ContactForm, StructuredData, and Icons. The site has no dark theme, scroll hijacking, loading screen, custom cursor, or client-rendered content shell.
 
 ## Contact delivery
 

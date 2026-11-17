@@ -72,6 +72,36 @@ test("layouts fit every requested viewport", async ({ page }) => {
   }
 });
 
+test("selected case studies support full-card pointer and keyboard navigation", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const section = page.getByRole("region", {
+    name: /Built with purpose.*Designed for real life/,
+  });
+  await expect(section.locator("article")).toHaveCount(3);
+  await expect(section.locator(".selected-project-academic img")).toHaveCount(
+    0,
+  );
+  const lead = section.locator("article").first();
+  await lead.evaluate((element) =>
+    element.scrollIntoView({ block: "start", behavior: "instant" }),
+  );
+  const box = (await lead.boundingBox())!;
+  await page.mouse.click(box.x + box.width / 2, box.y + 80);
+  await expect(page).toHaveURL(/\/work\/invo-pk$/);
+  await page.goBack();
+  const security = page.getByRole("link", {
+    name: "Read Security operations case study",
+    exact: true,
+  });
+  await security.focus();
+  await expect(security).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/\/work\/security-operations$/);
+});
+
 test("mobile navigation manages focus, closes with Escape, and follows links", async ({
   page,
 }) => {

@@ -1,10 +1,10 @@
 ﻿import Link from "next/link";
 import Portrait from "@/components/portfolio/Portrait";
 import TechnologyStack from "@/components/portfolio/TechnologyStack";
-import ProjectCard from "@/components/portfolio/ProjectCard";
+import SelectedWork from "@/components/portfolio/SelectedWork";
 import { ContactCTA } from "@/components/portfolio/Footer";
 import { Arrow, SymbolIcon } from "@/components/portfolio/Icons";
-import { projects, person } from "@/lib/content";
+import { person } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = {
   ...pageMetadata(
@@ -68,27 +68,7 @@ export default function Home() {
         </div>
       </section>
       <TechnologyStack />
-      <section className="section container selected-work" id="projects">
-        <span id="work" className="anchor-marker" />
-        <div className="section-heading">
-          <div>
-            <div className="section-label">01 / SELECTED WORK</div>
-            <h2>
-              Built with purpose.
-              <br />
-              <span>Designed for real life.</span>
-            </h2>
-          </div>
-          <Link prefetch={false} className="text-link" href="/work">
-            Explore all work <Arrow diagonal />
-          </Link>
-        </div>
-        <div className="featured-grid">
-          {projects.slice(0, 3).map((project, i) => (
-            <ProjectCard key={project.slug} project={project} index={i} />
-          ))}
-        </div>
-      </section>
+      <SelectedWork />
       <section className="section about-preview container" id="about">
         <div className="section-label">02 / THE ENGINEER BEHIND THE WORK</div>
         <div className="about-preview-grid">
