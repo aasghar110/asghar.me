@@ -49,59 +49,12 @@ test("configured contact form validates, preserves failures, and reports accepte
   expect(attempts).toBe(2);
 });
 
-test("configured analytics respects consent and preview responses prevent indexing", async ({
-  page,
-  request,
-}) => {
+test("preview responses prevent indexing", async ({ page, request }) => {
   test.skip(
     process.env.QA_INTEGRATIONS !== "1",
-    "Run against a preview build with the documented dummy analytics ID.",
-  );
-  let scripts = 0;
-  await page.route(
-    "https://www.googletagmanager.com/gtag/js**",
-    async (route) => {
-      scripts++;
-      await route.fulfill({
-        contentType: "application/javascript",
-        body: "/* Mock analytics transport: never contact Google during tests. */",
-      });
-    },
+    "Run against a preview build.",
   );
   await page.goto("/");
-  await expect(
-    page.getByRole("heading", { name: "A small privacy choice." }),
-  ).toBeVisible();
-  expect(scripts).toBe(0);
-  await page.getByRole("button", { name: "Allow analytics" }).click();
-  await expect.poll(() => scripts).toBe(1);
-  await expect
-    .poll(() => page.evaluate(() => window.dataLayer?.length || 0))
-    .toBeGreaterThanOrEqual(3);
-  await page
-    .getByRole("navigation", { name: "Main navigation", exact: true })
-    .getByRole("link", { name: "Work", exact: true })
-    .click();
-  await expect(page).toHaveURL(/\/work$/);
-  await expect
-    .poll(() =>
-      page.evaluate(
-        () =>
-          (window.dataLayer || []).filter(
-            (item) => (item as Record<number, unknown>)[1] === "page_view",
-          ).length,
-      ),
-    )
-    .toBe(2);
-  expect(scripts).toBe(1);
-  await page.getByRole("button", { name: "Cookie preferences" }).click();
-  await page.getByRole("button", { name: "No thanks" }).click();
-  expect(
-    await page.evaluate(() => localStorage.getItem("asghar-analytics-consent")),
-  ).toBe("denied");
-  expect(await page.evaluate(() => window["ga-disable-G-TEST123"])).toBe(true);
-  await page.reload();
-  expect(scripts).toBe(1);
   const response = await request.get("/");
   expect(response.headers()["x-robots-tag"]).toBe("noindex, nofollow");
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(

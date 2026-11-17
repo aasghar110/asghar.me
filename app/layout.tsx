@@ -2,7 +2,6 @@
 import { Geist, Manrope } from "next/font/google";
 import Header from "@/components/portfolio/Header";
 import Footer from "@/components/portfolio/Footer";
-import Analytics from "@/components/portfolio/Analytics";
 import ScrollMotion from "@/components/portfolio/ScrollMotion";
 import { person } from "@/lib/content";
 import { isPreview, siteUrl } from "@/lib/seo";
@@ -77,7 +76,6 @@ export default function RootLayout({
         </main>
         <Footer />
         <ScrollMotion />
-        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && <Analytics />}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

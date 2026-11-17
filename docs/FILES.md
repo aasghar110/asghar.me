@@ -1,6 +1,6 @@
 # File inventory
 
-Changes remain in the working tree; no commit or push was performed.
+Historical redesign inventory. For the current SEO work and Search Console-only measurement policy, see `SEO.md`. The analytics component listed in the original inventory has since been removed.
 
 ## Existing files changed or retired
 

@@ -1,6 +1,6 @@
 # Ali Asghar · asghar.me
 
-A light, editorial software engineering portfolio built with Next.js App Router, React, and TypeScript. Static pages, the technology rail, and case studies use Server Components. Navigation, scroll motion, consent controls, and the contact form are small Client Components. The technology rail pauses through CSS on hover or keyboard focus, without a visible pause button.
+A light, editorial software engineering portfolio built with Next.js App Router, React, and TypeScript. Static pages and case studies use Server Components. Navigation, the technology explorer, scroll motion, and the contact form are small Client Components. The technology explorer initially renders all 13 tools in HTML, with accessible category filters and no automatic movement.
 
 Scroll animation is handled by `components/portfolio/ScrollMotion.tsx`, using deferred GSAP imports and native Intersection Observer visibility detection. It adds one-time section reveals, short card staggers, a diagram entrance, and desktop-only decorative parallax. ScrollTrigger is loaded only for desktop parallax; mobile reveals create tweens only when elements enter view. Native scrolling is preserved. Reduced motion skips the engine entirely; switching that preference restores all original styles. Content already visible on arrival, including the hero, is never hidden for an entrance effect. Route cleanup removes the previous page's observers and animations, and focusing a link reveals its containing card immediately. `node scripts/record-motion.cjs` records a short local browser preview against localhost:3100.
 
@@ -30,7 +30,7 @@ Scripts invoke Node entry points directly so Windows project paths containing sp
 - `/work/[slug]` — statically generated case studies
 - `/experience` — verified career timeline
 - `/contact` — server-rendered configuration status and contact form
-- `/privacy` — contact data and optional analytics disclosure
+- `/privacy` — contact data, hosting, and Search Console disclosure
 - `/sitemap.xml`, `/robots.txt`, `/opengraph-image`, `/icon.svg`
 - `/api/contact` — POST-only email delivery endpoint
 
@@ -44,7 +44,7 @@ KidzSearch uses a text-only final-year project card and has no project image pan
 
 **Add a project:** add an entry to `projects` with a unique slug and verified content. Static generation, sitemap entries, the work listing, and related projects update automatically. Select an existing visual type or add a purpose-built visual in `components/portfolio/ProjectVisual.tsx`. Do not invent outcomes, screenshots, or client permission.
 
-**Update screenshots:** put approved public assets in `public/projects/`. Update `ProjectVisual.tsx` with the actual dimensions and descriptive alternative text. Use optimized WebP/AVIF. `npm run assets:refresh` captures only the public Invo.pk homepage and refreshes technology SVGs; review every refreshed asset. See `public/ASSET-CREDITS.md`.
+**Update screenshots:** put approved public assets in `public/projects/`. Update `ProjectVisual.tsx` with the actual dimensions and descriptive alternative text. Use optimized WebP/AVIF. `npm run assets:refresh` captures only the public Invo.pk homepage and refreshes technology logos; review every refreshed asset. For logos alone, use `node scripts/refresh-technology-icons.cjs`. Sources and licensing are recorded in `public/ASSET-CREDITS.md`.
 
 **Update experience:** edit `experience`, including machine-readable dates and public date labels. Keep responsibilities factual and distinguish individual contributions from team work.
 
@@ -58,7 +58,7 @@ KidzSearch uses a text-only final-year project card and has no project image pan
 
 `app/globals.css` defines colors, typography, spacing, responsive layouts, and reduced-motion alternatives. Geist is used for body copy; Manrope for headlines. Fonts are self-hosted through `next/font`.
 
-Shared components live in `components/portfolio/`: Header, Footer/ContactCTA, Portrait, PageIntro, ProjectCard, ProjectVisual, TechnologyMarquee, ContactForm, Analytics, and Icons. The site has no dark theme, scroll hijacking, loading screen, custom cursor, or client-rendered content shell.
+Shared components live in `components/portfolio/`: Header, Footer/ContactCTA, Portrait, PageIntro, ProjectCard, SelectedWork, ProjectVisual, TechnologyStack, ContactForm, StructuredData, and Icons. The site has no dark theme, scroll hijacking, loading screen, custom cursor, or client-rendered content shell.
 
 ## Contact delivery
 
@@ -70,14 +70,13 @@ Validation, size limits, same-origin JSON checks, header-injection protection, h
 
 **Delivery verification:** submit a real message after configuring credentials, confirm inbox/spam receipt, and verify Reply-To. Automated tests mock SMTP; actual Gmail delivery remains unverified without credentials.
 
-## Analytics and Search Console
+## Google Search Console
 
-- `NEXT_PUBLIC_GA_MEASUREMENT_ID`: optional public `G-…` identifier. Empty means no GA script and no analytics consent banner. Changing it requires rebuilding.
 - `GOOGLE_SITE_VERIFICATION`: optional HTML verification token. Leave empty for DNS-based verification. Search Console ownership has not been confirmed.
 
-GA loads only after explicit analytics consent. Rejecting analytics preserves all site functionality. Events include page views, project-link interactions (`view_project`), selected contact clicks (`contact_click`), and successful provider acceptance (`contact_form_submit`). Message contents and field values are never added to event payloads. There is no résumé or résumé event.
+Google Search Console is the only search measurement integration. Google Analytics, tracking scripts, and analytics consent controls have been removed. A previously configured GA measurement variable has no effect. Search Console verification requires no visitor tracking script.
 
-In GA4, turn off automatic browser-history page-view tracking in Enhanced Measurement to avoid duplicating the app's manual page views. Turn off enhanced form interactions if enabled. Verify behavior in DebugView after providing the real ID. Cookie preferences can be reopened after consent; withdrawing consent disables tracking and clears accessible GA cookies. This is a conservative opt-in implementation; confirm the final privacy wording against your actual account settings and data practices.
+See [docs/SEO.md](docs/SEO.md) for researched SEO/AEO/GEO guidance, page topics, and step-by-step Search Console checks after deployment.
 
 Production metadata allows indexing. Builds with `VERCEL_ENV=preview` emit noindex/nofollow metadata and response headers, plus restrictive robots rules. Keep Vercel preview deployment protection enabled as an additional safeguard. Do not serve a production build under a preview domain without the preview environment setting.
 
@@ -104,7 +103,7 @@ See `docs/IMPLEMENTATION.md` for measured results, limitations, and rollout step
 2. Add server secrets to the appropriate Preview/Production environment without committing them. Configure the Gmail account and its Google App Password.
 3. Create a preview deployment, check all routes and screenshots, confirm its noindex headers, and verify contact delivery after setup.
 4. Obtain explicit approval before production deployment, changing live variables, or editing domain/DNS settings.
-5. After approval, deploy production and verify canonical URLs, status codes, robots, sitemap, sharing image, consent, and email receipt.
+5. After approval, deploy production and verify canonical URLs, status codes, robots, sitemap, sharing image, absence of analytics, and email receipt.
 6. Configure the `www` hostname's certificate and permanent redirect in Vercel. The application redirect exists, but cannot repair a TLS certificate before HTTPS reaches the application.
 7. Confirm Search Console ownership, submit `https://asghar.me/sitemap.xml`, inspect the homepage and representative case studies, and monitor indexing and Core Web Vitals.
 

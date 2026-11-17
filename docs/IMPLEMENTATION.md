@@ -1,5 +1,15 @@
 # Redesign handoff
 
+This document records the original redesign and its measurements. The current Search Console-only policy and SEO/AEO/GEO changes are documented in [SEO.md](SEO.md); its measurement policy supersedes the historical Google Analytics setup below.
+
+The technology rail has since been replaced by `TechnologyStack.tsx`: a responsive grid of 13 tools with consistent icon wells, card spacing, visible category labels, and native category filter buttons. Filters expose pressed state, keep keyboard focus, and announce the result count. Cards are informational, with no false link/button affordance. The grid has no automatic movement, remains complete in initial HTML without JavaScript, and uses the existing site palette. `node scripts/capture-technology.cjs` captures desktop, filtered desktop, and 390/320px mobile previews against a local production server on port 3100.
+
+The homepage Selected Work section lives in `SelectedWork.tsx` and uses an editorial layout: a wide Invo.pk feature with copy beside a straight product preview, followed by two compact project rows separated by rules. The large typography, quieter technology labels, and reduced card framing use the existing navy, blue, and pale surfaces. Each project has one native link with a stretched pointer target and visible keyboard focus; no client-side navigation handler is required. Both supporting projects are text-only on the homepage. The security case study retains its disclosed conceptual diagram on its own page. Below 800px, feature copy and preview stack, and supporting rows put descriptions below their titles. Row numbering meets text-contrast requirements, and the preview caption has an opaque background to remain legible over the image. `node scripts/capture-selected-work.cjs` saves 1440/768/390/320px previews; fixed navigation is hidden only in these isolated section captures.
+
+The final local production build, lint, and typecheck passed. The browser suite passed 42 checks across Chromium, WebKit, and Firefox, with six configured contact/preview checks skipped. This includes full-card pointer and keyboard navigation, all 12 logo images loading, technology filter states and announcements, layouts at eight widths from 320–1920px, meaningful HTML without JavaScript, automated accessibility, and existing metadata/link/contact/motion checks. Desktop, tablet, and mobile section screenshots were visually reviewed. Production has not been deployed.
+
+Technology logos use reviewed, pinned source revisions, local SVG optimization, and one small vendor PNG. All 12 brand assets total approximately 15.7 KB before transfer compression. See `public/ASSET-CREDITS.md` and `scripts/refresh-technology-icons.cjs`; do not replace them with runtime CDN requests or an icon font.
+
 ## Delivered
 
 The portfolio has been rebuilt around a light editorial design: large Manrope headings, Geist body copy, navy hierarchy, restrained blue accents, fine borders, and asymmetric selected-work cards. The homepage stays focused on an introduction, technology rail, three projects, a short background/experience preview, and a contact invitation.

@@ -1,18 +1,18 @@
 ﻿import Link from "next/link";
 import Portrait from "@/components/portfolio/Portrait";
-import TechnologyMarquee from "@/components/portfolio/TechnologyMarquee";
-import ProjectCard from "@/components/portfolio/ProjectCard";
+import TechnologyStack from "@/components/portfolio/TechnologyStack";
+import SelectedWork from "@/components/portfolio/SelectedWork";
 import { ContactCTA } from "@/components/portfolio/Footer";
 import { Arrow, SymbolIcon } from "@/components/portfolio/Icons";
-import { projects, person } from "@/lib/content";
+import { person } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = {
   ...pageMetadata(
-    "Software Engineer",
+    "Backend & Full-Stack Software Engineer in Karachi",
     "Ali Asghar is a software engineer in Karachi building backend systems, full-stack applications, and cloud-based products. Explore selected work and experience.",
     "/",
   ),
-  title: { absolute: "Ali Asghar | Software Engineer" },
+  title: { absolute: "Ali Asghar | Backend & Full-Stack Engineer in Karachi" },
 };
 export default function Home() {
   return (
@@ -30,10 +30,9 @@ export default function Home() {
             </span>
           </h1>
           <p className="hero-description">
-            I build the systems behind useful software.
-            <br className="desktop-break" /> From dependable backends to
-            thoughtful
-            <br className="desktop-break" /> full-stack products.
+            I’m Ali Asghar, a software engineer in Karachi, Pakistan. I build
+            backend systems and full-stack applications with .NET, React, and
+            Node.js.
           </p>
           <div className="hero-actions">
             <Link
@@ -68,28 +67,8 @@ export default function Home() {
           </a>
         </div>
       </section>
-      <TechnologyMarquee />
-      <section className="section container selected-work" id="projects">
-        <span id="work" className="anchor-marker" />
-        <div className="section-heading">
-          <div>
-            <div className="section-label">01 / SELECTED WORK</div>
-            <h2>
-              Built with purpose.
-              <br />
-              <span>Designed for real life.</span>
-            </h2>
-          </div>
-          <Link prefetch={false} className="text-link" href="/work">
-            Explore all work <Arrow diagonal />
-          </Link>
-        </div>
-        <div className="featured-grid">
-          {projects.slice(0, 3).map((project, i) => (
-            <ProjectCard key={project.slug} project={project} index={i} />
-          ))}
-        </div>
-      </section>
+      <TechnologyStack />
+      <SelectedWork />
       <section className="section about-preview container" id="about">
         <div className="section-label">02 / THE ENGINEER BEHIND THE WORK</div>
         <div className="about-preview-grid">

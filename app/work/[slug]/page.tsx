@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProjectVisual from "@/components/portfolio/ProjectVisual";
 import ProjectCard from "@/components/portfolio/ProjectCard";
+import StructuredData from "@/components/portfolio/StructuredData";
 import { Arrow } from "@/components/portfolio/Icons";
 import { projects } from "@/lib/content";
 import { pageMetadata, siteUrl } from "@/lib/seo";
@@ -17,7 +18,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
-  return pageMetadata(project.name, project.summary, `/work/${slug}`);
+  return pageMetadata(
+    `${project.name} — ${project.tags.slice(0, 2).join(" & ")} Case Study`,
+    `${project.summary} ${project.role} by Ali Asghar.`,
+    `/work/${slug}`,
+  );
 }
 export default async function CaseStudy({
   params,
@@ -30,6 +35,7 @@ export default async function CaseStudy({
   const breadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": `${siteUrl}/work/${project.slug}#breadcrumb`,
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
       {
@@ -48,6 +54,27 @@ export default async function CaseStudy({
   };
   return (
     <>
+      <StructuredData
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": `${siteUrl}/work/${project.slug}#webpage`,
+          url: `${siteUrl}/work/${project.slug}`,
+          name: `${project.name} — Engineering Case Study`,
+          description: project.summary,
+          isPartOf: { "@id": `${siteUrl}/#website` },
+          author: { "@id": `${siteUrl}/#person` },
+          breadcrumb: { "@id": `${siteUrl}/work/${project.slug}#breadcrumb` },
+          mainEntity: {
+            "@type": "CreativeWork",
+            name: project.name,
+            description: project.goal,
+            contributor: { "@id": `${siteUrl}/#person` },
+            keywords: project.tags,
+            ...(project.link ? { url: project.link } : {}),
+          },
+        }}
+      />
       <div className="case-intro container">
         <Link prefetch={false} className="back-link" href="/work">
           <span aria-hidden="true">←</span> All work
@@ -101,7 +128,7 @@ export default async function CaseStudy({
         <div>
           <section id="overview">
             <div className="section-label">01 / THE GOAL</div>
-            <h2>Software with a purpose.</h2>
+            <h2>What problem does {project.name} address?</h2>
             <p>{project.goal}</p>
             {project.slug === "invo-pk" && (
               <p>
@@ -112,7 +139,7 @@ export default async function CaseStudy({
           </section>
           <section id="contribution">
             <div className="section-label">02 / MY CONTRIBUTION</div>
-            <h2>The work behind it.</h2>
+            <h2>My contribution to {project.name}</h2>
             <ul className="contribution-list">
               {project.contributions.map((text) => (
                 <li key={text}>{text}</li>
@@ -121,7 +148,7 @@ export default async function CaseStudy({
           </section>
           <section id="technology">
             <div className="section-label">03 / TECHNOLOGY & APPROACH</div>
-            <h2>Connecting the pieces.</h2>
+            <h2>Technology and implementation approach</h2>
             <p>{project.technical}</p>
             <div className="project-tags">
               {project.tags.map((tag) => (
@@ -131,7 +158,7 @@ export default async function CaseStudy({
           </section>
           <section id="considerations">
             <div className="section-label">04 / ENGINEERING CONSIDERATIONS</div>
-            <h2>Looking past the interface.</h2>
+            <h2>Engineering considerations</h2>
             <p>{project.consideration}</p>
           </section>
           {project.confidential && (
