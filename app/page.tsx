@@ -1,6 +1,6 @@
 ﻿import Link from "next/link";
 import Portrait from "@/components/portfolio/Portrait";
-import TechnologyMarquee from "@/components/portfolio/TechnologyMarquee";
+import TechnologyStack from "@/components/portfolio/TechnologyStack";
 import ProjectCard from "@/components/portfolio/ProjectCard";
 import { ContactCTA } from "@/components/portfolio/Footer";
 import { Arrow, SymbolIcon } from "@/components/portfolio/Icons";
@@ -67,7 +67,7 @@ export default function Home() {
           </a>
         </div>
       </section>
-      <TechnologyMarquee />
+      <TechnologyStack />
       <section className="section container selected-work" id="projects">
         <span id="work" className="anchor-marker" />
         <div className="section-heading">

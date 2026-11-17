@@ -1,6 +1,6 @@
 # Ali Asghar · asghar.me
 
-A light, editorial software engineering portfolio built with Next.js App Router, React, and TypeScript. Static pages, the technology rail, and case studies use Server Components. Navigation, scroll motion, and the contact form are small Client Components. The technology rail pauses through CSS on hover or keyboard focus, without a visible pause button.
+A light, editorial software engineering portfolio built with Next.js App Router, React, and TypeScript. Static pages and case studies use Server Components. Navigation, the technology explorer, scroll motion, and the contact form are small Client Components. The technology explorer initially renders all 13 tools in HTML, with accessible category filters and no automatic movement.
 
 Scroll animation is handled by `components/portfolio/ScrollMotion.tsx`, using deferred GSAP imports and native Intersection Observer visibility detection. It adds one-time section reveals, short card staggers, a diagram entrance, and desktop-only decorative parallax. ScrollTrigger is loaded only for desktop parallax; mobile reveals create tweens only when elements enter view. Native scrolling is preserved. Reduced motion skips the engine entirely; switching that preference restores all original styles. Content already visible on arrival, including the hero, is never hidden for an entrance effect. Route cleanup removes the previous page's observers and animations, and focusing a link reveals its containing card immediately. `node scripts/record-motion.cjs` records a short local browser preview against localhost:3100.
 
@@ -44,7 +44,7 @@ KidzSearch uses a text-only final-year project card and has no project image pan
 
 **Add a project:** add an entry to `projects` with a unique slug and verified content. Static generation, sitemap entries, the work listing, and related projects update automatically. Select an existing visual type or add a purpose-built visual in `components/portfolio/ProjectVisual.tsx`. Do not invent outcomes, screenshots, or client permission.
 
-**Update screenshots:** put approved public assets in `public/projects/`. Update `ProjectVisual.tsx` with the actual dimensions and descriptive alternative text. Use optimized WebP/AVIF. `npm run assets:refresh` captures only the public Invo.pk homepage and refreshes technology SVGs; review every refreshed asset. See `public/ASSET-CREDITS.md`.
+**Update screenshots:** put approved public assets in `public/projects/`. Update `ProjectVisual.tsx` with the actual dimensions and descriptive alternative text. Use optimized WebP/AVIF. `npm run assets:refresh` captures only the public Invo.pk homepage and refreshes technology logos; review every refreshed asset. For logos alone, use `node scripts/refresh-technology-icons.cjs`. Sources and licensing are recorded in `public/ASSET-CREDITS.md`.
 
 **Update experience:** edit `experience`, including machine-readable dates and public date labels. Keep responsibilities factual and distinguish individual contributions from team work.
 
@@ -58,7 +58,7 @@ KidzSearch uses a text-only final-year project card and has no project image pan
 
 `app/globals.css` defines colors, typography, spacing, responsive layouts, and reduced-motion alternatives. Geist is used for body copy; Manrope for headlines. Fonts are self-hosted through `next/font`.
 
-Shared components live in `components/portfolio/`: Header, Footer/ContactCTA, Portrait, PageIntro, ProjectCard, ProjectVisual, TechnologyMarquee, ContactForm, StructuredData, and Icons. The site has no dark theme, scroll hijacking, loading screen, custom cursor, or client-rendered content shell.
+Shared components live in `components/portfolio/`: Header, Footer/ContactCTA, Portrait, PageIntro, ProjectCard, ProjectVisual, TechnologyStack, ContactForm, StructuredData, and Icons. The site has no dark theme, scroll hijacking, loading screen, custom cursor, or client-rendered content shell.
 
 ## Contact delivery
 

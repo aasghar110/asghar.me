@@ -2,6 +2,8 @@
 
 This document records the original redesign and its measurements. The current Search Console-only policy and SEO/AEO/GEO changes are documented in [SEO.md](SEO.md); its measurement policy supersedes the historical Google Analytics setup below.
 
+The technology rail has since been replaced by `TechnologyStack.tsx`: a responsive grid of 13 tools with consistent icon wells, card spacing, visible category labels, and native category filter buttons. Filters expose pressed state, keep keyboard focus, and announce the result count. Cards are informational, with no false link/button affordance. The grid has no automatic movement, remains complete in initial HTML without JavaScript, and uses the existing site palette. `node scripts/capture-technology.cjs` captures desktop, filtered desktop, and 390/320px mobile previews against a local production server on port 3100.
+
 ## Delivered
 
 The portfolio has been rebuilt around a light editorial design: large Manrope headings, Geist body copy, navy hierarchy, restrained blue accents, fine borders, and asymmetric selected-work cards. The homepage stays focused on an introduction, technology rail, three projects, a short background/experience preview, and a contact invitation.

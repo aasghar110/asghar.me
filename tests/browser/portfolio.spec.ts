@@ -112,34 +112,62 @@ test("mobile navigation manages focus, closes with Escape, and follows links", a
   await expect(page).toHaveURL("http://localhost:3100/");
 });
 
-test("marquee pauses and reduced motion gives a static list", async ({
+test("technology filters work with keyboard, touch-sized controls, and reduced motion", async ({
   page,
 }) => {
   await page.goto("/");
-  await expect(
-    page.getByRole("button", { name: /Pause motion|Play motion/i }),
-  ).toHaveCount(0);
   const technologySection = page.getByRole("region", {
-    name: "Technologies I work with",
+    name: "Different tools. One thoughtful approach.",
+  });
+  await expect(technologySection.getByRole("listitem")).toHaveCount(13);
+  await technologySection.scrollIntoViewIfNeeded();
+  await expect(technologySection.locator(".technology-icon img")).toHaveCount(
+    12,
+  );
+  await expect
+    .poll(async () =>
+      technologySection
+        .locator(".technology-icon img")
+        .evaluateAll((images) =>
+          images.every(
+            (image) =>
+              (image as HTMLImageElement).complete &&
+              (image as HTMLImageElement).naturalWidth > 0,
+          ),
+        ),
+    )
+    .toBe(true);
+  const backend = technologySection.getByRole("button", {
+    name: "Backend",
     exact: true,
   });
-  await technologySection.focus();
-  await expect(page.locator(".marquee-track")).toHaveCSS(
-    "animation-play-state",
-    "paused",
+  await backend.focus();
+  await page.keyboard.press("Enter");
+  await expect(backend).toHaveAttribute("aria-pressed", "true");
+  await expect(backend).toBeFocused();
+  await expect(technologySection.getByRole("listitem")).toHaveCount(3);
+  await expect(technologySection.getByRole("status")).toHaveText(
+    "3 tools · Backend",
   );
-  await page.keyboard.press("Tab");
-  await expect(page.locator(".marquee-track")).toHaveCSS(
-    "animation-play-state",
-    "running",
-  );
-  await page.locator(".marquee").hover();
-  await expect(page.locator(".marquee-track")).toHaveCSS(
-    "animation-play-state",
-    "paused",
-  );
+  await technologySection
+    .getByRole("button", { name: "Cloud & delivery", exact: true })
+    .click();
+  await expect(technologySection.getByRole("listitem")).toHaveCount(4);
+  await expect(
+    technologySection.getByText("Infrastructure as Code", { exact: true }),
+  ).toBeVisible();
+  for (const button of await technologySection.getByRole("button").all()) {
+    expect((await button.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+  }
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect(page.locator('.marquee-group[aria-hidden="true"]')).toBeHidden();
+  await technologySection
+    .getByRole("button", { name: "All tools", exact: true })
+    .click();
+  await expect(technologySection.getByRole("listitem")).toHaveCount(13);
+  await expect(technologySection.locator("ul")).toHaveCSS(
+    "animation-name",
+    "none",
+  );
   await expect(page.locator(".hero-copy")).toHaveCSS("animation-name", "none");
 });
 
@@ -226,6 +254,12 @@ test("content remains readable without JavaScript", async ({ browser }) => {
     await page.goto(`http://localhost:3100${route}`);
     await expect(page.locator("h1")).toBeVisible();
     await expect(page.locator("main")).not.toBeEmpty();
+    if (route === "/") {
+      await expect(page.locator(".technology-grid > li")).toHaveCount(13);
+      await expect(
+        page.getByText("Infrastructure as Code", { exact: true }),
+      ).toBeVisible();
+    }
   }
   await context.close();
 });
